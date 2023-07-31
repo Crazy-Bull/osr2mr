@@ -1,0 +1,7 @@
+# binary files
+*.o
+*.exe
+Makefile.win
+
+# dev-cpp development files
+*.dev
