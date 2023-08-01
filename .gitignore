@@ -8,4 +8,8 @@ Makefile.win
 *.layout
 
 # test files
-test.out
+test*.out
+
+# LZMA encoding and decoding scripts
+LZMA*
+7zTypes.h

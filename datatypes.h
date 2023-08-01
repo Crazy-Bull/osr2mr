@@ -2,6 +2,8 @@
 #define __DATATYPES_H__
 #include <string>
 #include <fstream>
+#include <vector>
+
 namespace osu
 {
 	struct String
@@ -14,6 +16,14 @@ namespace osu
 		void clear();
 		int readFrom(std::ifstream &in);
 		
+	};
+	
+	struct KeyFrame
+	{
+		long long w;
+		int x;
+		float y;
+		int z;
 	};
 	
 	class OsuManiaReplayData
@@ -42,8 +52,13 @@ namespace osu
 		unsigned long long replayId;
 		double additionalMod;
 		
+		unsigned char *decodedReplayData;
+		std::vector<KeyFrame> frames;
+		
 	public:
 		int readFromPath(std::string path);
+		int decode();
+		int readFrames();
 	};
 }
 #endif

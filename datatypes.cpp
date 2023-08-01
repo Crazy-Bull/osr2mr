@@ -1,9 +1,15 @@
 #include "datatypes.h"
+#include "LzmaDec.h"
 
 #define R(fin, var) (fin).read((char*) &(var), sizeof(var))
 
 namespace osu
 {
+	/* external allocator for LZMA decoding */
+	void *SzAlloc(ISzAllocPtr p, size_t size) { p = p; return malloc(size); }
+	void SzFree(ISzAllocPtr p, void *address) { p = p; free(address); }
+	ISzAlloc alloc = { SzAlloc, SzFree };
+	
 	String::String()
 	{
 		clear();
@@ -83,5 +89,25 @@ namespace osu
 		else return 1;
 		fin.close();
 		return 0;
+	}
+
+	int OsuManiaReplayData::decode()
+	{
+		unsigned long long srcLength = replayDataLength - 13;
+		unsigned long long destLength = srcLength * 30 + 100;
+		unsigned char *dest = new unsigned char[destLength];
+		unsigned char *props = replayData;
+		ELzmaStatus stat;
+		
+		SRes res = LzmaDecode(dest, &destLength, replayData + 13, &srcLength, props, 5, LZMA_FINISH_ANY, &stat, &alloc);
+		decodedReplayData = dest;
+		return res;
+	}
+	
+	int OsuManiaReplayData::readFrames()
+	{
+		frames.clear();
+		KeyFrame f;
+		
 	}
 }
