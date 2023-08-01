@@ -10,15 +10,19 @@ namespace osu
 		unsigned long long length;
 		std::string data;
 		
-		int readFrom(ifstream &in);
+		String();
+		void clear();
+		int readFrom(std::ifstream &in);
+		
 	};
 	
 	class OsuManiaReplayData
 	{
-	private:
+	//private:
+	public:
 		unsigned char mode;
 		int version;
-		String mapNameMD5;
+		String mapMD5;
 		String playerName;
 		String replayMD5;
 		short n320;
@@ -28,8 +32,8 @@ namespace osu
 		short n50;
 		short n0;
 		int score;
-		int combo;
-		bool fullCombo;
+		short combo;
+		unsigned char fullCombo;
 		int mods;
 		String lifeBarGraph;
 		unsigned long long createTime;

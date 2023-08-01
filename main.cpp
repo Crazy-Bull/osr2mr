@@ -1,5 +1,5 @@
 #include <windows.h>
-
+#include "datatypes.h"
 /* This is where all the input to the window goes to */
 LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 	switch(Message) {
@@ -52,7 +52,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		MessageBox(NULL, "Window Creation Failed!","Error!",MB_ICONEXCLAMATION|MB_OK);
 		return 0;
 	}
-
+	
+	
+	/* tests */
+	osu::OsuManiaReplayData dat;
+	int result = dat.readFromPath("C:\\Users\\Olive\\AppData\\Local\\osu!\\Replays\\crazybull - typeMARS - Triumph & Regret [Regret] (2023-07-28) OsuMania.osr");
+	char buf[100];
+	MessageBox(NULL, itoa(result,buf,10),"1",MB_OK);
+	MessageBox(NULL, std::to_string(dat.mods).data(),"mods",MB_OK);
+	MessageBox(NULL, dat.lifeBarGraph.data.data(),"name",MB_OK);
+	  
+	
 	/*
 		This is the heart of our program where all input is processed and 
 		sent to WndProc. Note that GetMessage blocks code flow until it receives something, so

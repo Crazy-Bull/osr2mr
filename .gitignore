@@ -5,3 +5,7 @@ Makefile.win
 
 # dev-cpp development files
 *.dev
+*.layout
+
+# test files
+test.out
