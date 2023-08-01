@@ -100,14 +100,25 @@ namespace osu
 		ELzmaStatus stat;
 		
 		SRes res = LzmaDecode(dest, &destLength, replayData + 13, &srcLength, props, 5, LZMA_FINISH_ANY, &stat, &alloc);
-		decodedReplayData = dest;
+		decodedReplayData = (char *)dest;
 		return res;
 	}
 	
 	int OsuManiaReplayData::readFrames()
 	{
+		int ret = 0;
 		frames.clear();
 		KeyFrame f;
-		
+		long long w;
+		int x, z, pos, totalPos = 0;
+		float y;
+		while(4 == sscanf(decodedReplayData + totalPos, "%ld|%d|%f|%d,%n", &w, &x, &y, &z, &pos))
+		{
+			frames.push_back({w,x,y,z});
+			totalPos += pos; 
+			ret++;
+			if(ret >= 1000000) break;
+		}
+		return ret;
 	}
 }

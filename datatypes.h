@@ -52,7 +52,7 @@ namespace osu
 		unsigned long long replayId;
 		double additionalMod;
 		
-		unsigned char *decodedReplayData;
+		char *decodedReplayData;
 		std::vector<KeyFrame> frames;
 		
 	public:

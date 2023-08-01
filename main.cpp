@@ -55,17 +55,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	
 	
 	/* tests */
-	char replayPath[] = "C:\\Users\\Olive\\Downloads\\replay-mania_3469849_544800408.osr";
-	char resultPath[] = "test3.out";
+	const char replayPath[] = "C:\\Users\\Olive\\Downloads\\replay-mania_3469849_544800408.osr";
+	const char resultPath[] = "test3.out";
+	const char debugPath[] = "test.out";
+	
 	osu::OsuManiaReplayData dat;
 	int result = dat.readFromPath(replayPath);
 	int decoderes = dat.decode();
-	MessageBox(NULL, std::to_string(decoderes).data(),"decode result",MB_OK);
+	//MessageBox(NULL, std::to_string(decoderes).data(),"decode result",MB_OK);
 	//MessageBox(NULL, std::to_string(dat.mods).data(),"mods",MB_OK);
 	std::ofstream fout(resultPath, std::ios::out);
 	//MessageBox(NULL, (char*)dat.decodedReplayData,"mods",MB_OK);
 	fout<<(char*)dat.decodedReplayData<<std::endl;
 	fout.close();
+	result = dat.readFrames();
+	MessageBox(NULL, std::to_string(result).data(),"decode result",MB_OK);
+	
 	/*
 		This is the heart of our program where all input is processed and 
 		sent to WndProc. Note that GetMessage blocks code flow until it receives something, so
