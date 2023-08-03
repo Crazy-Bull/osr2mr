@@ -1,5 +1,6 @@
 #include <windows.h>
-#include "datatypes.h"
+#include "omtypes.h"
+#include "malodytypes.h"
 /* This is where all the input to the window goes to */
 LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 	switch(Message) {
@@ -55,9 +56,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	
 	
 	/* tests */
-	const char replayPath[] = "C:\\Users\\Olive\\Downloads\\replay-mania_3469849_544800408.osr";
-	const char resultPath[] = "test3.out";
+	const char replayPath[] = "C:\\Users\\Olive\\AppData\\Local\\osu!\\Replays\\crazybull - typeMARS - Triumph & Regret [Regret] (2023-07-28) OsuMania.osr";
+	const char resultPath[] = "test1.out";
 	const char debugPath[] = "test.out";
+	const char testMrPath[] = "test.mr";
+	const unsigned char mldversion[4] = {7,3,4,0};
 	
 	osu::OsuManiaReplayData dat;
 	int result = dat.readFromPath(replayPath);
@@ -69,7 +72,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	fout<<(char*)dat.decodedReplayData<<std::endl;
 	fout.close();
 	result = dat.readFrames();
-	MessageBox(NULL, std::to_string(result).data(),"decode result",MB_OK);
+	//MessageBox(NULL, std::to_string(result).data(),"decode result",MB_OK);
+	//MessageBox(NULL, std::to_string(dat.createTime).data(),"ids",MB_OK);
+	
+	malody::MalodyReplayData mdat;
+	mdat.transformFrom(dat,mldversion,1);
+	MessageBox(NULL, "transform complete","ids",MB_OK); 
+	mdat.writeTo(testMrPath);
+	MessageBox(NULL, "write complete","ids",MB_OK);
 	
 	/*
 		This is the heart of our program where all input is processed and 

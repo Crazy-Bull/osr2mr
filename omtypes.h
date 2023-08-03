@@ -1,5 +1,5 @@
-#ifndef __DATATYPES_H__
-#define __DATATYPES_H__
+#ifndef __OMTYPES_H__
+#define __OMTYPES_H__
 #include <string>
 #include <fstream>
 #include <vector>
@@ -20,8 +20,8 @@ namespace osu
 	
 	struct KeyFrame
 	{
-		long long w;
-		int x;
+		long long w;	// milliseconds from last frame
+		int x;	// key press status (2^k: k-th key from the left pressed, leftmost is 0)
 		float y;
 		int z;
 	};

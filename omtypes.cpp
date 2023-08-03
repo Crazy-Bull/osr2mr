@@ -1,4 +1,4 @@
-#include "datatypes.h"
+#include "omtypes.h"
 #include "LzmaDec.h"
 
 #define R(fin, var) (fin).read((char*) &(var), sizeof(var))
@@ -84,6 +84,7 @@ namespace osu
 			R(fin, replayDataLength);
 			replayData = new unsigned char[replayDataLength];
 			fin.read((char*)replayData, replayDataLength);
+			R(fin, replayId);
 			R(fin, additionalMod);
 		}
 		else return 1;
@@ -117,7 +118,6 @@ namespace osu
 			frames.push_back({w,x,y,z});
 			totalPos += pos; 
 			ret++;
-			if(ret >= 1000000) break;
 		}
 		return ret;
 	}
