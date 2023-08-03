@@ -9,6 +9,8 @@ Makefile.win
 
 # test files
 test*.out
+*.osr
+*.mr
 
 # LZMA encoding and decoding scripts
 LZMA*

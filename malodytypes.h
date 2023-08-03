@@ -13,6 +13,8 @@ namespace malody
 		std::string data;
 		String();
 		String(std::string str);
+		int writeTo(std::ofstream &fout);
+		void operator= (std::string str);
 	};
 	
 	struct KeyFrame
@@ -26,12 +28,12 @@ namespace malody
 	{
 	//private:
 	public:
-		std::string header;
+		String header;
 		unsigned char version[4];
-		std::string mapMD5;
-		std::string difficultyName;
-		std::string songName;
-		std::string artistName;
+		String mapMD5;
+		String difficultyName;
+		String songName;
+		String artistName;
 		unsigned int score;
 		unsigned int combo;
 		unsigned int best;
@@ -42,7 +44,7 @@ namespace malody
 		unsigned int mods;
 		unsigned int judge;	// 0-4: A-E
 		
-		std::string dataHeader;
+		String dataHeader;
 		//unsigned char version[4]; another version code
 		unsigned int frameNum;
 		unsigned char gameMode;	// 00: 4Key
@@ -51,8 +53,8 @@ namespace malody
 		std::vector<KeyFrame> frames;
 		
 	public:
-		int transformFrom(const osu::OsuManiaReplayData &omdata, const char *version, unsigned int judge);
-		int writeTo(std::string path);
+		int transformFrom(const osu::OsuManiaReplayData &omdata, const unsigned char *version, unsigned int judge);
+		int writeTo(std::string path); 
 	};
 }
 
