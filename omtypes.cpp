@@ -61,7 +61,6 @@ namespace osu
 	int OsuManiaReplayData::readFromPath(std::string path)
 	{
 		std::ifstream fin(path, std::ios::in | std::ios::binary);
-		std::ofstream fout("test.out", std::ios::out);
 		if(fin.is_open())
 		{
 			R(fin, mode);
