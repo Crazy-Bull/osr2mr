@@ -53,7 +53,7 @@ namespace malody
 		std::vector<KeyFrame> frames;
 		
 	public:
-		int transformFrom(const osu::OsuManiaReplayData &omdata, const unsigned char *version, unsigned int judge);
+		int transformFrom(const osu::OsuManiaReplayData &omdata, const unsigned char *version, unsigned int judge, unsigned int key);
 		int writeTo(std::string path); 
 	};
 }

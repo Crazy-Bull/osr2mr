@@ -27,7 +27,7 @@ namespace malody
 		length = str.length();
 	}
 	
-	int MalodyReplayData::transformFrom(const osu::OsuManiaReplayData &omdata, const unsigned char *version, unsigned int judge)
+	int MalodyReplayData::transformFrom(const osu::OsuManiaReplayData &omdata, const unsigned char *version, unsigned int judge, unsigned int key)
 	{
 		header = "mr format head";
 		for(int i = 0; i < 4; i++) 
@@ -57,7 +57,7 @@ namespace malody
 		for(int i = 1; i < n; i++)
 		{
 			timeStamp += f[i].w;
-			for(unsigned char k = 0; k < 4; k++)
+			for(unsigned char k = 0; k < key; k++)
 			{
 				/* key press */
 				if(((f[i].x >> k) & 1) && !((lastStatus >> k) & 1))	
@@ -118,6 +118,7 @@ namespace malody
 			W(fout, frames[i].keyNo);
 		}
 		
+		fout.close();
 		return 0;
 	}
 }
